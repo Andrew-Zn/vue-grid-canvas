@@ -403,7 +403,15 @@ export default {
         },
         save() {
             if (this.focusCell && this.isEditing) {
-                if (`${this.$refs.input.innerText}` !== `${this.allCells[this.focusCell.rowIndex][this.focusCell.cellIndex].content}`) {
+                let text = this.$refs.input.innerText
+                if (!text) {
+                    text = ''
+                }
+                let value = this.allCells[this.focusCell.rowIndex][this.focusCell.cellIndex].content
+                if (!value) {
+                    value = ''
+                }
+                if (`${text}` !== `${value}`) {
                     this.$emit('updateItem', {
                         index: this.focusCell.rowIndex,
                         key: this.focusCell.key,
