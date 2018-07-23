@@ -205,12 +205,13 @@ export default {
         handleResize() {
             // this.isFocus = false
             // this.focusCell = null
-
-            this.selectArea = null
-            this.isSelect = false
-            this.save()
-            this.hideInput()
-            this.initSize()
+            if (this.$refs.grid) {
+                this.selectArea = null
+                this.isSelect = false
+                this.save()
+                this.hideInput()
+                this.initSize()
+            }
         },
         handleWheel(e) {
             if (e.target.tagName === 'CANVAS') {

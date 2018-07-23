@@ -446,7 +446,7 @@ export default {
                 this.data[index][key] = value
                 this.setCellItemByKey(index, key, value)
                 this.rePainted()
-                this.$emit('updateValue', [{ rowData: this.data[index], items: [{ key, value }] }])
+                this.$emit('updateValue', [{ rowData: this.data[index], index, items: [{ key, value }] }])
             }
         },
         saveItems(data, history) {

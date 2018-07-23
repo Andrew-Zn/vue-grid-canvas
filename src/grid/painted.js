@@ -59,25 +59,27 @@ export default {
          */
         rePainted() {
             let items = this.initDisplayItems()
-            if (this.autoAddRow) { // 自动增加行，减少行
-                if (items.displayRows[items.displayRows.length - 1].rowIndex >= this.allRows.length - 50) {
-                    const startIndex = this.data.length
-                    for (let i = 0; i < 100; i += 1) {
-                        this.data.push(this.templateData)
+            if (items.displayColumns.length > 0) {
+                if (this.autoAddRow) { // 自动增加行，减少行
+                    if (items.displayRows[items.displayRows.length - 1].rowIndex >= this.allRows.length - 50) {
+                        const startIndex = this.data.length
+                        for (let i = 0; i < 100; i += 1) {
+                            this.data.push(this.templateData)
+                        }
+                        this.setAllCells(startIndex)
+                        items = this.initDisplayItems()
+                    } else if (this.data.length > this.initRows && items.displayRows[items.displayRows.length - 1].rowIndex <= this.allRows.length - 200) {
+                        this.data.splice(this.data.length - 100, 100)
+                        this.allCells.splice(this.allCells.length - 100, 100)
+                        this.allRows.splice(this.allRows.length - 100, 100)
+                        this.setBodyHeight(this.allRows, this.originPoint)
+                        this.resetScrollBar(this.maxPoint, this.bodyWidth, this.bodyHeight, this.fixedWidth)
+                        items = this.initDisplayItems()
                     }
-                    this.setAllCells(startIndex)
-                    items = this.initDisplayItems()
-                } else if (this.data.length > this.initRows && items.displayRows[items.displayRows.length - 1].rowIndex <= this.allRows.length - 200) {
-                    this.data.splice(this.data.length - 100, 100)
-                    this.allCells.splice(this.allCells.length - 100, 100)
-                    this.allRows.splice(this.allRows.length - 100, 100)
-                    this.setBodyHeight(this.allRows, this.originPoint)
-                    this.resetScrollBar(this.maxPoint, this.bodyWidth, this.bodyHeight, this.fixedWidth)
-                    items = this.initDisplayItems()
                 }
+                this.clearPainted()
+                this.painted(items)
             }
-            this.clearPainted()
-            this.painted(items)
             return items
         },
         /**
